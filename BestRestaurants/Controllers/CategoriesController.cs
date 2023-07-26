@@ -1,23 +1,23 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using ToDoList.Models;
+using BestRestaurants.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ToDoList.Controllers
+namespace BestRestaurants.Controllers
 {
-    public class CategoriesController : Controller
+    public class RestaurantsController : Controller
     {
-        private readonly ToDoListContext _db;
+        private readonly BestRestaurantsContext _db;
 
-        public CategoriesController(ToDoListContext db)
+        public RestaurantsController(BestRestaurantsContext db)
         {
              _db = db;
         }
 
         public ActionResult Index()
         {
-            List<Category> model = _db.Categories.ToList();
+            List<Restaurant> model = _db.Restaurants.ToList();
             return View(model);
         }
         public ActionResult Create()
@@ -26,38 +26,38 @@ namespace ToDoList.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Category category)
+        public ActionResult Create(Restaurant restaurant)
         {
         
-            _db.Categories.Add(category);
+            _db.Restaurants.Add(restaurant);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
         public ActionResult Details(int id)
         {
-            Category thisCategory = _db.Categories
-            .Include(category => category.Items)
-            .FirstOrDefault(category => category.CategoryId == id);
-            return View(thisCategory);
+            Restaurant thisRestaurant = _db.Restaurants
+            .Include(restaurant => restaurant.Items)
+            .FirstOrDefault(restaurant => restaurant.RestaurantId == id);
+            return View(thisRestaurant);
         }
         [HttpPost]
-        public ActionResult Edit(Category category)
+        public ActionResult Edit(Restaurant restaurant)
         {
-            _db.Categories.Update(category);
+            _db.Restaurants.Update(restaurant);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
         public ActionResult Delete(int id)
         {
-            Category thisCategory = _db.Categories.FirstOrDefault(category => category.CategoryId == id);
-            return View(thisCategory);
+            Restaurant thisRestaurant = _db.Restaurants.FirstOrDefault(restaurant => restaurant.RestaurantId == id);
+            return View(thisRestaurant);
         }
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category thisCategory = _db.Categories.FirstOrDefault(category => category.CategoryId == id);
-            _db.Categories.Remove(thisCategory);
+            Restaurant thisRestaurant = _db.Restaurants.FirstOrDefault(restaurant => restaurant.RestaurantId == id);
+            _db.Restaurants.Remove(thisRestaurant);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }

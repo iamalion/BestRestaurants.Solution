@@ -2,11 +2,11 @@
   Layout = "_Layout";
 }
 
-@model ToDoList.Models.Item
+@model BestRestaurants.Models.Cuisine
 
 <h2>Edit</h2>
 
-<h4>Edit this item: @Html.DisplayFor(model => model.Description)</h4>
+<h4>Edit this cuisine: @Html.DisplayFor(model => model.Description)</h4>
 
 @using (Html.BeginForm())
 {
@@ -15,8 +15,8 @@
     @Html.LabelFor(model => model.Description)
     @Html.EditorFor(model => model.Description)
 
-    @Html.LabelFor(model => model.Category)
-    @Html.DropDownList("CategoryId")
+    @Html.LabelFor(model => model.Restaurant)
+    @Html.DropDownList("RestaurantId")
 
     <input type="submit" value="Save" />
 }
